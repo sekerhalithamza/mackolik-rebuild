@@ -1,0 +1,39 @@
+{
+  "name": "mackolik-rebuild",
+  "version": "1.0.0",
+  "description": "The better lookin mackolik",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all copy --parallel watch serve",
+    "copy": "npm-run-all --parallel copy:*",
+    "copy:html": "copyfiles -u 1 ./src/*.html dist",
+    "copy:js": "copyfiles -u 1 ./src/script/*.js dist",
+    "copy:assets": "copyfiles -u ./src/assets/**/* dist",
+    "watch:assets": "onchange \"src/assets/**/*\" -- npm run copy:assets",
+    "watch:html": "onchange \"src/*.html\" -- npm run copy:html",
+    "watch:js": "onchange \"src/scripts/*.js\" -- npm run copy:js",
+    "watch:sass": "sass --no-source-map --watch src/sass:dist/css",
+    "watch": "npm-run-all --parallel watch:*",
+    "serve": "browser-sync start --serve dist --files dist --mimeTypes \"text/html,text/css,application/javascript\"",
+    "build": "npm-run-all copy --parallel build:*",
+    "build:sass": "sass --no-source-map src/sass:dist/css",
+    "predeploy": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sekerhalithamza/mackolik-rebuild.git"
+  },
+  "author": "Halit Hamza Şeker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sekerhalithamza/mackolik-rebuild/issues"
+  },
+  "homepage": "https://github.com/sekerhalithamza/mackolik-rebuild#readme",
+  "dependencies": {
+    "browser-sync": "^3.0.2",
+    "copyfiles": "^2.4.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "sass": "^1.74.1"
+  }
+}
